@@ -1,5 +1,5 @@
 -- GuiToModule v1.0
--- Generated: 2026-08-07 18:38:33
+-- Generated: 2026-08-07 18:56:14
 -- Author: spaghettshi
 
 local UI = {}
@@ -647,43 +647,43 @@ function UI.Create(): ScreenGui
 	Instances["UICorner8"] = UICorner8
 	UICorner8.Parent = SubmitAPIKey
 
-	local TextLabel3: TextLabel = Instance.new("TextLabel")
-	TextLabel3.Name = "TextLabel"
-	TextLabel3.Active = false
-	TextLabel3.AnchorPoint = Vector2.new(0,0)
-	TextLabel3.AutomaticSize = Enum.AutomaticSize.None
-	TextLabel3.BackgroundColor3 = Color3.fromRGB(255,255,255)
-	TextLabel3.BackgroundTransparency = 1
-	TextLabel3.BorderColor3 = Color3.fromRGB(0,0,0)
-	TextLabel3.BorderMode = Enum.BorderMode.Outline
-	TextLabel3.BorderSizePixel = 0
-	TextLabel3.ClipsDescendants = false
-	TextLabel3.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-	TextLabel3.LayoutOrder = 0
-	TextLabel3.LineHeight = 1
-	TextLabel3.MaxVisibleGraphemes = -1
-	TextLabel3.Position = UDim2.new(0.3566265106201172,0,1.3636363744735718,0)
-	TextLabel3.RichText = false
-	TextLabel3.Rotation = 0
-	TextLabel3.Selectable = false
-	TextLabel3.Size = UDim2.new(0,267,0,37)
-	TextLabel3.SizeConstraint = Enum.SizeConstraint.RelativeXY
-	TextLabel3.Text = "Status:"
-	TextLabel3.TextColor3 = Color3.fromRGB(154,154,154)
-	TextLabel3.TextDirection = Enum.TextDirection.Auto
-	TextLabel3.TextScaled = false
-	TextLabel3.TextSize = 26
-	TextLabel3.TextStrokeColor3 = Color3.fromRGB(0,0,0)
-	TextLabel3.TextStrokeTransparency = 1
-	TextLabel3.TextTransparency = 0
-	TextLabel3.TextTruncate = Enum.TextTruncate.None
-	TextLabel3.TextWrapped = false
-	TextLabel3.TextXAlignment = Enum.TextXAlignment.Left
-	TextLabel3.TextYAlignment = Enum.TextYAlignment.Center
-	TextLabel3.Visible = true
-	TextLabel3.ZIndex = 1
-	Instances["TextLabel3"] = TextLabel3
-	TextLabel3.Parent = Frame
+	local APIStatus: TextLabel = Instance.new("TextLabel")
+	APIStatus.Name = "APIStatus"
+	APIStatus.Active = false
+	APIStatus.AnchorPoint = Vector2.new(0,0)
+	APIStatus.AutomaticSize = Enum.AutomaticSize.None
+	APIStatus.BackgroundColor3 = Color3.fromRGB(255,255,255)
+	APIStatus.BackgroundTransparency = 1
+	APIStatus.BorderColor3 = Color3.fromRGB(0,0,0)
+	APIStatus.BorderMode = Enum.BorderMode.Outline
+	APIStatus.BorderSizePixel = 0
+	APIStatus.ClipsDescendants = false
+	APIStatus.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	APIStatus.LayoutOrder = 0
+	APIStatus.LineHeight = 1
+	APIStatus.MaxVisibleGraphemes = -1
+	APIStatus.Position = UDim2.new(0.3566265106201172,0,1.3636363744735718,0)
+	APIStatus.RichText = false
+	APIStatus.Rotation = 0
+	APIStatus.Selectable = false
+	APIStatus.Size = UDim2.new(0,267,0,37)
+	APIStatus.SizeConstraint = Enum.SizeConstraint.RelativeXY
+	APIStatus.Text = "Status:"
+	APIStatus.TextColor3 = Color3.fromRGB(154,154,154)
+	APIStatus.TextDirection = Enum.TextDirection.Auto
+	APIStatus.TextScaled = false
+	APIStatus.TextSize = 26
+	APIStatus.TextStrokeColor3 = Color3.fromRGB(0,0,0)
+	APIStatus.TextStrokeTransparency = 1
+	APIStatus.TextTransparency = 0
+	APIStatus.TextTruncate = Enum.TextTruncate.None
+	APIStatus.TextWrapped = false
+	APIStatus.TextXAlignment = Enum.TextXAlignment.Left
+	APIStatus.TextYAlignment = Enum.TextYAlignment.Center
+	APIStatus.Visible = true
+	APIStatus.ZIndex = 1
+	Instances["APIStatus"] = APIStatus
+	APIStatus.Parent = Frame
 
 	return Buddy
 end
