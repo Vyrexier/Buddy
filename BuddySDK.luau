@@ -893,24 +893,18 @@ local Tools = {
 function SDK.GetToolList(permissionLevel)
 	local result = {}
 
-	-- Always available: meta-tool
-	local requestTool = Tools.buddy_request_tools
-
-	if requestTool and requestTool.Permission <= permissionLevel then
-		table.insert(result, {
-			type = "function",
-			["function"] = {
-				name = "buddy_request_tools",
-				description = requestTool.Description,
-				parameters = requestTool.Parameters
-			}
-		})
-	end
+	table.insert(result, {
+		type = "function",
+		["function"] = {
+			name = "buddy_request_tools",
+			description = Tools.buddy_request_tools.Description,
+			parameters = Tools.buddy_request_tools.Parameters
+		}
+	})
 
 	for category in pairs(ActiveToolCategories) do
 		for _, name in ipairs(ToolCategories[category]) do
 			local data = Tools[name]
-
 			if data and data.Permission <= permissionLevel then
 				table.insert(result, {
 					type = "function",
