@@ -342,7 +342,12 @@ local Tools = {
 		Description = "List all currently cached instances with their keys and descriptions",
 		Parameters = {
 			type = "object",
-			properties = {},
+			properties = {
+				_placeholder = {
+					type = "string",
+					description = "unused"
+				}
+			},
 			required = {}
 		},
 		Function = function(args)
