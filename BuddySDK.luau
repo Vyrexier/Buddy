@@ -385,6 +385,12 @@ local Tools = {
 			required = {}
 		},
 		Function = function(args)
+			local includeChar = args.include_character
+			if typeof(includeChar) == "string" then
+				includeChar = includeChar:lower() == "true"
+			end
+			args.include_character = includeChar
+			
 			local Player = Players.LocalPlayer
 			if not Player then return "LocalPlayer not available" end
 
