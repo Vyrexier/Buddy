@@ -503,23 +503,60 @@ local Tools = {
 
 	roblox_fire_touch_interest = {
 		Permission = SDK.Permission.Restricted,
-		Description = "Simulate a touch event between two BaseParts",
+
+		Description = "Simulate a touch event between two BaseParts. Use toggle 1 to begin touching and 0 to end touching.",
+
 		Parameters = {
 			type = "object",
 			properties = {
-				part1 = { type = "string", description = "Path to the initiating BasePart" },
-				part2 = { type = "string", description = "Path to the BasePart to be touched" },
-				toggle = { type = "boolean", description = "true = touch start, false = touch end" }
+				part1 = {
+					type = "string",
+					description = "Path to the initiating BasePart"
+				},
+
+				part2 = {
+					type = "string",
+					description = "Path to the BasePart to be touched"
+				},
+
+				toggle = {
+					type = "number",
+					enum = {0, 1},
+					description = "Touch state: 1 = touch start, 0 = touch end"
+				}
 			},
-			required = {"part1", "part2", "toggle"}
+
+			required = {
+				"part1",
+				"part2",
+				"toggle"
+			}
 		},
+
 		Function = function(args)
 			local p1 = ResolvePath(args.part1)
 			local p2 = ResolvePath(args.part2)
-			if not p1 then return "Part1 not found: " .. args.part1 end
-			if not p2 then return "Part2 not found: " .. args.part2 end
+
+			if not p1 then
+				return "Part1 not found: " .. args.part1
+			end
+
+			if not p2 then
+				return "Part2 not found: " .. args.part2
+			end
+
+			if typeof(args.toggle) ~= "number" then
+				return "Invalid toggle: expected 0 or 1"
+			end
+
 			firetouchinterest(p1, p2, args.toggle)
-			return "Fired touch: " .. args.part1 .. " → " .. args.part2
+
+			return string.format(
+				"Fired touch: %s -> %s (toggle=%d)",
+				args.part1,
+				args.part2,
+				args.toggle
+			)
 		end
 	},
 
