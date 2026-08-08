@@ -1,5 +1,5 @@
 -- GuiToModule v1.0
--- Generated: 2026-08-08 15:20:43
+-- Generated: 2026-08-08 17:50:06
 -- Author: spaghettshi
 
 local UI = {}
@@ -28,10 +28,10 @@ function UI.Create(): ScreenGui
 	Container.BorderSizePixel = 0
 	Container.ClipsDescendants = true
 	Container.LayoutOrder = 0
-	Container.Position = UDim2.new(0.22204996645450592,0,0.23636643588542938,0)
+	Container.Position = UDim2.new(0.24185195565223694,0,0.281736820936203,0)
 	Container.Rotation = 0
 	Container.Selectable = false
-	Container.Size = UDim2.new(0,989,0,493)
+	Container.Size = UDim2.new(0,919,0,493)
 	Container.SizeConstraint = Enum.SizeConstraint.RelativeXY
 	Container.Visible = true
 	Container.ZIndex = 1
@@ -67,10 +67,10 @@ function UI.Create(): ScreenGui
 	Header.BorderSizePixel = 0
 	Header.ClipsDescendants = false
 	Header.LayoutOrder = 0
-	Header.Position = UDim2.new(0.00093805295182392,0,0,0)
+	Header.Position = UDim2.new(0.0009380419505760074,0,0,0)
 	Header.Rotation = 0
 	Header.Selectable = false
-	Header.Size = UDim2.new(0,988,0,42)
+	Header.Size = UDim2.new(0,918,0,42)
 	Header.SizeConstraint = Enum.SizeConstraint.RelativeXY
 	Header.Visible = true
 	Header.ZIndex = 1
@@ -236,7 +236,7 @@ function UI.Create(): ScreenGui
 	InputMessageContainer.Position = UDim2.new(0.015435481444001198,0,0.7501578330993652,0)
 	InputMessageContainer.Rotation = 0
 	InputMessageContainer.Selectable = false
-	InputMessageContainer.Size = UDim2.new(0,967,0,49)
+	InputMessageContainer.Size = UDim2.new(0,895,0,49)
 	InputMessageContainer.SizeConstraint = Enum.SizeConstraint.RelativeXY
 	InputMessageContainer.Visible = true
 	InputMessageContainer.ZIndex = 1
@@ -308,7 +308,7 @@ function UI.Create(): ScreenGui
 	Body.Position = UDim2.new(0.015435481444001198,0,0.09486152976751328,0)
 	Body.Rotation = 0
 	Body.Selectable = false
-	Body.Size = UDim2.new(0,968,0,363)
+	Body.Size = UDim2.new(0,878,0,363)
 	Body.SizeConstraint = Enum.SizeConstraint.RelativeXY
 	Body.Visible = true
 	Body.ZIndex = 1
@@ -346,7 +346,7 @@ function UI.Create(): ScreenGui
 	ScrollingFrame.ScrollingDirection = Enum.ScrollingDirection.XY
 	ScrollingFrame.ScrollingEnabled = true
 	ScrollingFrame.Selectable = true
-	ScrollingFrame.Size = UDim2.new(0,949,0,361)
+	ScrollingFrame.Size = UDim2.new(0,876,0,361)
 	ScrollingFrame.SizeConstraint = Enum.SizeConstraint.RelativeXY
 	ScrollingFrame.VerticalScrollBarInset = Enum.ScrollBarInset.None
 	ScrollingFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Right
@@ -386,7 +386,7 @@ function UI.Create(): ScreenGui
 	SubmitMessage.LineHeight = 1
 	SubmitMessage.MaxVisibleGraphemes = -1
 	SubmitMessage.Modal = false
-	SubmitMessage.Position = UDim2.new(0.8053136467933655,0,0.7600706815719604,0)
+	SubmitMessage.Position = UDim2.new(0.7405856847763062,0,0.7600706815719604,0)
 	SubmitMessage.RichText = false
 	SubmitMessage.Rotation = 0
 	SubmitMessage.Selected = false
@@ -747,7 +747,7 @@ function UI.Create(): ScreenGui
 	HistoryContainer.BorderSizePixel = 0
 	HistoryContainer.ClipsDescendants = true
 	HistoryContainer.LayoutOrder = 0
-	HistoryContainer.Position = UDim2.new(0.2127130627632141,0,0.2361111044883728,0)
+	HistoryContainer.Position = UDim2.new(0.23043063282966614,0,0.28148147463798523,0)
 	HistoryContainer.Rotation = 0
 	HistoryContainer.Selectable = false
 	HistoryContainer.Size = UDim2.new(0,242,0,493)
