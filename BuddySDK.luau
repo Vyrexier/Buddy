@@ -47,6 +47,83 @@ local function RecursiveSearch(root, name, depth)
 end
 
 local Tools = {
+	roblox_get_instances_in_radius = {
+		Permission = SDK.Permission.Read,
+		Description = "Get Roblox instances whose BaseParts are within a radius of a position",
+		Parameters = {
+			type = "object",
+			properties = {
+				position = {
+					type = "object",
+					description = "World position with X, Y, and Z coordinates",
+					properties = {
+						X = {
+							type = "number",
+							description = "X coordinate"
+						},
+						Y = {
+							type = "number",
+							description = "Y coordinate"
+						},
+						Z = {
+							type = "number",
+							description = "Z coordinate"
+						}
+					},
+					required = {"X", "Y", "Z"}
+				},
+				radius = {
+					type = "number",
+					description = "Search radius in studs"
+				},
+				max_parts = {
+					type = "number",
+					description = "Maximum number of parts to return"
+				}
+			},
+			required = {"position", "radius"}
+		},
+		Function = function(args)
+			local position = Vector3.new(
+				args.position.X,
+				args.position.Y,
+				args.position.Z
+			)
+
+			local radius = math.max(args.radius, 0)
+			local maxParts = args.max_parts or 100
+
+			local overlapParams = OverlapParams.new()
+			overlapParams.MaxParts = maxParts
+
+			local parts = workspace:GetPartBoundsInRadius(
+				position,
+				radius,
+				overlapParams
+			)
+
+			local results = {}
+
+			for _, part in ipairs(parts) do
+				table.insert(results, {
+					Name = part.Name,
+					ClassName = part.ClassName,
+					Path = part:GetFullName(),
+					Position = {
+						X = part.Position.X,
+						Y = part.Position.Y,
+						Z = part.Position.Z
+					}
+				})
+			end
+
+			if #results == 0 then
+				return "No instances found within radius"
+			end
+
+			return HttpService:JSONEncode(results)
+		end
+	},
 	roblox_get_timestamp = {
 		Permission = SDK.Permission.Read,
 		Description = "Get the current UTC timestamp in ISO 8601 format",
