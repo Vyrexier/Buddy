@@ -5,6 +5,7 @@ local SDK = {}
 SDK.__index = SDK
 
 local InstanceCache = {}
+local ActiveToolCategories = {}
 
 SDK.Permission = {
 	Read = 0,
@@ -46,7 +47,99 @@ local function RecursiveSearch(root, name, depth)
 	return "Instance not found: " .. name
 end
 
+local ToolCategories = {
+	-- Roblox: Read-only information
+	roblox_read = {
+		"roblox_get_instances_in_radius",
+		"roblox_get_timestamp",
+		"roblox_find_instance",
+		"roblox_search_instances",
+		"roblox_set_checkpoint",
+		"roblox_get_local_player",
+		"roblox_list_children",
+	},
+
+	-- Roblox: Instance cache
+	roblox_cache = {
+		"roblox_cache_instance",
+		"roblox_get_cached",
+		"roblox_clear_cache",
+		"roblox_list_cache",
+	},
+
+	-- Roblox: Interaction / simulation
+	roblox_interaction = {
+		"roblox_fire_click_detector",
+		"roblox_fire_proximity_prompt",
+		"roblox_fire_touch_interest",
+	},
+
+	-- Roblox: Code execution / inspection
+	roblox_execution = {
+		"roblox_execute_code",
+		"roblox_decompile_script",
+	},
+
+	-- Executor filesystem
+	filesystem = {
+		"fs_read_file",
+		"fs_write_file",
+		"fs_append_file",
+		"fs_delete_file",
+		"fs_list_files",
+		"fs_make_folder",
+		"fs_delete_folder",
+		"fs_is_file",
+		"fs_is_folder",
+		"fs_load_file",
+		"fs_get_custom_asset",
+	},
+}
+
 local Tools = {
+	buddy_request_tools = {
+		Permission = -1,
+
+		Description = "Request access to tools needed for the current task",
+
+		Parameters = {
+			type = "object",
+			properties = {
+				categories = {
+					type = "array",
+					items = {
+						type = "string",
+						enum = {
+							"roblox_read",
+							"roblox_cache",
+							"roblox_interaction",
+							"roblox_execution",
+							"filesystem"
+						}
+					}
+				}
+			},
+			required = {"categories"}
+		},
+
+		Function = function(args)
+			local result = {}
+
+			for _, category in ipairs(args.categories or {}) do
+				if ToolCategories[category] then
+					table.insert(result, category)
+				end
+			end
+
+			if #result == 0 then
+				return "No valid tool categories requested"
+			end
+
+			SDK.SetActiveToolCategories(result)
+
+			return "Enabled tool categories: " .. table.concat(result, ", ")
+		end
+	},
 	roblox_get_instances_in_radius = {
 		Permission = SDK.Permission.Read,
 		Description = "Get Roblox instances whose BaseParts are within a radius of a position",
@@ -791,35 +884,64 @@ local Tools = {
 
 function SDK.GetToolList(permissionLevel)
 	local result = {}
-	for name, data in pairs(Tools) do
-		if data.Permission <= permissionLevel then
-			table.insert(result, {
-				type = "function",
-				["function"] = {
-					name = name,
-					description = data.Description,
-					parameters = data.Parameters
-				}
-			})
+
+	-- Always available: meta-tool
+	local requestTool = Tools.buddy_request_tools
+
+	if requestTool and requestTool.Permission <= permissionLevel then
+		table.insert(result, {
+			type = "function",
+			["function"] = {
+				name = "buddy_request_tools",
+				description = requestTool.Description,
+				parameters = requestTool.Parameters
+			}
+		})
+	end
+
+	for category in pairs(ActiveToolCategories) do
+		for _, name in ipairs(ToolCategories[category]) do
+			local data = Tools[name]
+
+			if data and data.Permission <= permissionLevel then
+				table.insert(result, {
+					type = "function",
+					["function"] = {
+						name = name,
+						description = data.Description,
+						parameters = data.Parameters
+					}
+				})
+			end
 		end
 	end
+
 	return result
 end
 
 function SDK.GetToolSummary(permissionLevel)
 	local available = {}
 	local locked = {}
+
 	for name, data in pairs(Tools) do
-		if data.Permission <= permissionLevel then
-			table.insert(available, name)
-		else
-			table.insert(locked, name)
+		if name ~= "buddy_request_tools" then
+			if data.Permission <= permissionLevel then
+				table.insert(available, name)
+			else
+				table.insert(locked, name)
+			end
 		end
 	end
+	
+	table.sort(available)
+	table.sort(locked)
+
 	return string.format(
 		"Available tools (%d): %s\nLocked tools (%d): %s",
-		#available, table.concat(available, ", "),
-		#locked, table.concat(locked, ", ")
+		#available,
+		table.concat(available, ", "),
+		#locked,
+		table.concat(locked, ", ")
 	)
 end
 
@@ -873,6 +995,55 @@ function SDK.GetToolDocs(permissionLevel)
 		return a.Name < b.Name
 	end)
 	return docs
+end
+
+function SDK.GetToolsByCategories(permissionLevel, categories)
+	local selected = {}
+
+	for _, category in ipairs(categories) do
+		local tools = ToolCategories[category]
+
+		if tools then
+			for _, toolName in ipairs(tools) do
+				selected[toolName] = true
+			end
+		end
+	end
+
+	local result = {}
+
+	for name, data in pairs(Tools) do
+		if selected[name] and data.Permission <= permissionLevel then
+			table.insert(result, {
+				type = "function",
+				["function"] = {
+					name = name,
+					description = data.Description,
+					parameters = data.Parameters
+				}
+			})
+		end
+	end
+
+	return result
+end
+
+function SDK.SetActiveToolCategories(categories)
+	ActiveToolCategories = {}
+
+	for _, category in ipairs(categories) do
+		if ToolCategories[category] then
+			ActiveToolCategories[category] = true
+		end
+	end
+end
+
+function SDK.GetActiveToolCategories()
+	return ActiveToolCategories
+end
+
+function SDK.ClearActiveToolCategories()
+	ActiveToolCategories = {}
 end
 
 return SDK
