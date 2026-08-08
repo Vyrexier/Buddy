@@ -47,6 +47,23 @@ local function RecursiveSearch(root, name, depth)
 end
 
 local Tools = {
+	roblox_get_timestamp = {
+		Permission = SDK.Permission.Read,
+		Description = "Get the current UTC timestamp in ISO 8601 format",
+		Parameters = {
+			type = "object",
+			properties = {
+				_placeholder = {
+					type = "string",
+					description = "Unused placeholder parameter"
+				}
+			},
+			required = {}
+		},
+		Function = function()
+			return GetTimeStamp()
+		end
+	},
 	roblox_execute_code = {
 		Permission = SDK.Permission.Dangerous,
 		Description = "Execute Luau code locally in Roblox",
