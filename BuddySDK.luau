@@ -100,7 +100,15 @@ local Tools = {
 	buddy_request_tools = {
 		Permission = -1,
 
-		Description = "Request access to tools needed for the current task",
+		Description = "Request tool categories needed for the current task. " ..
+			"Call this FIRST before any task that needs tools. " ..
+			"Pick only what you need. " ..
+			"Available categories: " ..
+			"roblox_read (find, search, list children, get player info, get instances in radius, get timestamp), " ..
+			"roblox_cache (cache, retrieve, clear, list cached instances), " ..
+			"roblox_interaction (fire click detector, proximity prompt, touch interest), " ..
+			"roblox_execution (execute Luau code, decompile scripts), " ..
+			"filesystem (read, write, append, delete files and folders).",
 
 		Parameters = {
 			type = "object",
