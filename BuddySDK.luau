@@ -15,6 +15,10 @@ SDK.Permission = {
 
 local CurrentCheckpoint = game
 
+local function GetTimeStamp()
+	return os.date("!%Y-%m-%dT%H:%M:%SZ")
+end
+
 local function ResolvePath(path)
 	local Current = game
 	for name in string.gmatch(path, "[^%.]+") do
@@ -706,7 +710,7 @@ function SDK.HandleToolCall(toolCall, permissionLevel)
 	local success, result = pcall(tool.Function, args)
 	if not success then return "Tool Error: " .. tostring(result) end
 
-	return tostring(result)
+	return tostring(result) .. "\nTimestamp: " .. GetTimeStamp()
 end
 
 function SDK.GetToolDocs(permissionLevel)
